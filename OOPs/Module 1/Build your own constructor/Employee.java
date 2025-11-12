@@ -49,7 +49,7 @@ public class Employee implements Cloneable {
     // - For salary: Ensure it is greater than or equal to 0
 
     public void setName(String name) {
-        if (name.isEmpty()) {
+        if (!name.isEmpty()) {
             this.name = name;
         } else {
             System.out.println("Ensure it is not null or empty");
@@ -57,7 +57,7 @@ public class Employee implements Cloneable {
     }
 
     public void setAge(int age) {
-        if (age <= 18 || age >= 65) {
+        if (age >= 18 && age <= 65) {
             this.age = age;
         } else {
             System.out.println("Ensure it is between 18 and 65 (inclusive)");
@@ -84,17 +84,17 @@ public class Employee implements Cloneable {
     // Hint: public void giveRaise(double percentage)
 
     public void giveRaise(double percentage) {
-        salary *= percentage;
+        salary *= percentage / 100;
     }
 
     // Step 7: Create a public method to display employee details
     // Hint: Use System.out.println() to print name, age, monthly salary, and annual salary
 
-    public void displayEmployeeDetails(Employee employee) {
-        System.out.println("Name - " + employee.getName() +
-                "\nAge - " + employee.getAge() +
-                "\nSalary (monthly) - " + employee.getSalary() +
-                "\nSalary (annual) - " + employee.calculateAnnualSalary());
+    public void displayEmployeeDetails() {
+        System.out.println("Name - " + getName() +
+                "\nAge - " + getAge() +
+                "\nSalary (monthly) - " + getSalary() +
+                "\nSalary (annual) - " + calculateAnnualSalary());
     }
 
     // Step 8: Override the clone method to make Employee objects cloneable
@@ -104,5 +104,13 @@ public class Employee implements Cloneable {
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return "Name - " + name +
+                "\nAge - " + age +
+                "\nSalary (monthly) - " + salary +
+                "\nSalary (annual) - " + calculateAnnualSalary();
     }
 }
