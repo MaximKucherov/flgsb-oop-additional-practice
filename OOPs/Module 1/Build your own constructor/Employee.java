@@ -21,24 +21,30 @@ public class Employee implements Cloneable {
     // Hint: public Employee(String name, int age, double salary)
 
     public Employee(String name, int age, double salary) {
+        /*
         this.name = name;
         this.age = age;
         this.salary = salary;
+        */
+        // Вместо обычных строк можно разместить сюда setters
+        setName(name);
+        setAge(age);
+        setSalary(salary);
     }
 
     // Step 3: Create public getter methods for each variable
     // Hint: Use the format: public returnType getVariableName()
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public double getSalary() {
-        return salary;
+        return this.salary;
     }
 
     // Step 4: Create public setter methods for each variable
@@ -49,10 +55,11 @@ public class Employee implements Cloneable {
     // - For salary: Ensure it is greater than or equal to 0
 
     public void setName(String name) {
-        if (!name.isEmpty()) {
+        if (name != null && !name.trim().isEmpty()) {  // trim позволяет убрать лишние пробелы перед проверкой
             this.name = name;
         } else {
-            System.out.println("Ensure it is not null or empty");
+            System.out.println("Error: Name cannot be null or empty. Setting to 'Unknown'");
+            this.name = "Unknown"; // присваиваем неизвестное имя и предупреждаем но тогда необходима возможность заменить
         }
     }
 
@@ -60,7 +67,8 @@ public class Employee implements Cloneable {
         if (age >= 18 && age <= 65) {
             this.age = age;
         } else {
-            System.out.println("Ensure it is between 18 and 65 (inclusive)");
+            System.out.println("Error: Age must be between 18 and 65. Setting to default (18)");
+            this.age = 18; // присваиваем default и сообщаем об этом в ошибке но тогда нужна возможность замены
         }
     }
 
@@ -68,7 +76,8 @@ public class Employee implements Cloneable {
         if (salary >= 0) {
             this.salary = salary;
         } else {
-            System.out.println("Ensure it is greater than or equal to 0");
+            System.out.println("Error: Salary cannot be negative. Setting to 0");
+            this.salary = 0; // Сообщаем об ошибке и присваиваем 0
         }
     }
 
@@ -76,7 +85,7 @@ public class Employee implements Cloneable {
     // Hint: public double calculateAnnualSalary()
 
     public double calculateAnnualSalary() {
-        return salary * 12;
+        return this.salary * 12; // добавляем this если работаем в классе с атрибутами (нельзя return не использовать если одна строка)
     }
 
     // Step 6: Create a public method to give a raise (percentage)
@@ -84,7 +93,16 @@ public class Employee implements Cloneable {
     // Hint: public void giveRaise(double percentage)
 
     public void giveRaise(double percentage) {
-        salary *= percentage / 100;
+        // Добавляем проверку на значения меньше нуля
+        if (salary >= 0) {
+            // Значение salary имеет тип double поэтому расчитывает
+            double raiseAmount = this.salary * (percentage / 100);
+            this.salary += raiseAmount;
+            // Сообщаем о результате полученном
+            System.out.println(this.name + " reseived a raise of " + percentage + "%");
+        } else {
+            System.out.println("Raise percentage must be positive");
+        }
     }
 
     // Step 7: Create a public method to display employee details
@@ -93,8 +111,8 @@ public class Employee implements Cloneable {
     public void displayEmployeeDetails() {
         System.out.println("Name - " + getName() +
                 "\nAge - " + getAge() +
-                "\nSalary (monthly) - " + getSalary() +
-                "\nSalary (annual) - " + calculateAnnualSalary());
+                "\nSalary (monthly) - $" + String.format("%.2f", this.salary) +
+                "\nSalary (annual) - " + String.format("%.2f", calculateAnnualSalary()));
     }
 
     // Step 8: Override the clone method to make Employee objects cloneable
