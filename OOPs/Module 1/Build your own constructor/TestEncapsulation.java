@@ -11,7 +11,7 @@ public class TestEncapsulation {
     }
 
     public static void main(String[] args) {
-        // Step 1: Create two instances of the Employee class
+        System.out.println("Step 1: Create two instances of the Employee class");
         // One using the parameterized constructor and one using default constructor with setters
 
         Employee employee1 = new Employee("Maxim", 45, 2000.0);
@@ -21,29 +21,27 @@ public class TestEncapsulation {
         employee2.setAge(44);
         employee2.setSalary(1000.0);
 
-        // Step 2: Print details of both employees
+        System.out.println("Step 2: Print details of both employees");
 
-        System.out.println("=====");
         employee1.displayEmployeeDetails();
         employee2.displayEmployeeDetails();
-        System.out.println("=====");
 
-        // Step 3: Try setting invalid values (null name, age outside range, negative salary)
+        System.out.println("Step 3: Try setting invalid values (null name, age outside range, negative salary)");
         // and see if your validation works
 
         employee1.setName("");
         employee1.setAge(5);
         employee1.setSalary(-10);
-        
-        // Step 4: Give both employees a 10% raise and display their details again
+
+        System.out.println("Step 4: Give both employees a 10% raise and display their details again");
 
         employee1.giveRaise(110);
-        employee2.giveRaise(120);
+        employee2.giveRaise(110);
 
         System.out.println(employee1);
         System.out.println(employee2);
 
-        // Step 5: Clone the first employee and display the cloned employee details
+        System.out.println("Step 5: Clone the first employee and display the cloned employee details");
         // Hint: Use try-catch block to handle CloneNotSupportedException
         // Employee clonedEmployee = (Employee) employee1.clone();
 
@@ -57,7 +55,7 @@ public class TestEncapsulation {
             throw new RuntimeException(e);
         }
 
-        // Step 6: Modify the original employee and verify that the clone remains unchanged
+        System.out.println("Step 6: Modify the original employee and verify that the clone remains unchanged");
         // This demonstrates that cloning creates a separate object
 
         employee1.setName("Katka");
@@ -67,7 +65,7 @@ public class TestEncapsulation {
         System.out.println(employee1);
         System.out.println(employee4);
 
-        // Step 7: Create a method that compares the salaries of two employees
+        System.out.println("Step 7: Create a method that compares the salaries of two employees");
         // and returns the name of the employee with the higher salary
         // If salaries are equal, return "Equal salaries"
 
