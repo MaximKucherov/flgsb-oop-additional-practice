@@ -17,7 +17,7 @@ abstract class Instrument {
 
     abstract String play();
     public String getInstrumentDetails() {
-        return "Instrument: " + this.name + ", Year: " + this.year;
+        return "Instrument: " + this.name + ", Year of made: " + this.year;
     }
 }
 
@@ -26,9 +26,9 @@ abstract class Instrument {
 // - abstract method tune() that returns a String
 // - abstract method adjustPitch(boolean up) that returns a String (up means increase pitch)
 
-interface Tunable {
+interface Tunable {  // Начиная с версии Java 8 можно не писать слово abstract
     abstract String tune();
-    abstract String adjustPitch(boolean up);
+    abstract String adjustPitch(boolean up); // (up means increase pitch)
 }
 
 // Step 3: Create an interface Maintainable
@@ -36,7 +36,7 @@ interface Tunable {
 // - abstract method clean() that returns a String
 // - abstract method inspect() that returns a String
 
-interface Maintainable {
+interface Maintainable {  // Начиная с версии Java 8 можно не писать слово abstract
     abstract String clean();
     abstract String inspect();
 }
