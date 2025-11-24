@@ -25,18 +25,20 @@ abstract class Instrument {
 // This should include:
 // - abstract method tune() that returns a String
 // - abstract method adjustPitch(boolean up) that returns a String (up means increase pitch)
+//  Начиная с версии Java 8 можно не писать слово abstract
 
-interface Tunable {  // Начиная с версии Java 8 можно не писать слово abstract
-    abstract String tune();
-    abstract String adjustPitch(boolean up); // (up means increase pitch)
+interface Tunable {  // Настраиваемый
+    abstract String tune(); //  Мелодия
+    abstract String adjustPitch(boolean up); // Отрегулируйте шаг
 }
 
 // Step 3: Create an interface Maintainable
 // This should include:
 // - abstract method clean() that returns a String
 // - abstract method inspect() that returns a String
+// Начиная с версии Java 8 можно не писать слово abstract
 
-interface Maintainable {  // Начиная с версии Java 8 можно не писать слово abstract
+interface Maintainable {  // Поддерживаемый
     abstract String clean();
     abstract String inspect();
 }
@@ -48,7 +50,7 @@ interface Maintainable {  // Начиная с версии Java 8 можно н
 // - implementation of the abstract play() method
 // - override getInstrumentDetails() to include number of strings
 
-class StringedInstrument extends Instrument {
+class StringedInstrument extends Instrument {  // Струнный инструмент
     private int numberOfStrings;
 
     public StringedInstrument(String name, int year, int numberOfStrings) {
@@ -75,7 +77,7 @@ class StringedInstrument extends Instrument {
 // - implementation of all required interface methods
 
 class Guitar extends StringedInstrument implements Tunable, Maintainable {
-    private String guitarType;
+    private String guitarType;  // Тип гитары (акустическая, электро и т.д.)
 
     public Guitar(String name, int year, int numberOfStrings, String guitarType) {
         super(name, year, numberOfStrings);
@@ -115,7 +117,6 @@ class Guitar extends StringedInstrument implements Tunable, Maintainable {
     public String inspect() {
         return "Проверка гитары: лады, гриф и электроника (если есть) в отличном состоянии.";
     }
-
 }
 
 // Step 6: Create a concrete class Piano that extends Instrument
@@ -178,6 +179,50 @@ class Piano extends Instrument implements Tunable, Maintainable {
 
 public class MusicShop {
     public static void main(String[] args) {
+
+        // Вариант 1
+        Instrument[] instrumentsV1 = new Instrument[2];
+
+        Guitar guitar = new Guitar("Name of guitar", 1950, 7, "Type of guitar");
+        Piano piano = new Piano("Name of piano", 1955, true);
+
+        instrumentsV1[0] = guitar;
+        instrumentsV1[1] = piano;
+
+        instrumentsV1[0].play();
+        instrumentsV1[1].play();
+
+        instrumentsV1[0].getInstrumentDetails();
+        instrumentsV1[1].getInstrumentDetails();
+
+        instrumentsV1[0].tune();
+        instrumentsV1[1].tune();
+
+        instrumentsV1[0].adjustPitch(true);
+        instrumentsV1[1].adjustPitch(true);
+
+        instrumentsV1[0].clean();
+        instrumentsV1[1].clean();
+
+        instrumentsV1[0].inspect();
+        instrumentsV1[1].inspect();
+
+
+        // Вариант 2
+        List<Instrument> instrumentsV2 = new ArrayList<>();
+
+        instrumentsV2.add(guitar);
+        instrumentsV2.add(piano);
+
+        for (int i = 0; i < instrumentsV2.size(); i++) {
+            instrumentsV2.get(i).play();
+            instrumentsV2.get(i).getInstrumentDetails();
+            instrumentsV2.get(i).tune();
+            instrumentsV2.get(i).adjustPitch(true);
+            instrumentsV2.get(i).clean();
+            instrumentsV2.get(i).inspect();
+        }
+
 
     }
 }
