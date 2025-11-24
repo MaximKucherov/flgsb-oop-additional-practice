@@ -15,9 +15,14 @@ abstract class Instrument {
         this.year = year;
     }
 
-    abstract String play();
+    public abstract String play();
+
     public String getInstrumentDetails() {
-        return "Instrument: " + this.name + ", Year of made: " + this.year;
+        return "Instrument: " + name + ", Year of made: " + year;
+    }
+
+    public String getName() {
+        return name;
     }
 }
 
@@ -67,6 +72,10 @@ class StringedInstrument extends Instrument {  // Струнный инстру�
     public String getInstrumentDetails() {
         return super.getInstrumentDetails() + ", number of string: " + this.numberOfStrings;
     }
+
+    public int getNumberOfStrings() {
+        return numberOfStrings;
+    }
 }
 
 // Step 5: Create a concrete class Guitar that extends StringedInstrument 
@@ -101,11 +110,7 @@ class Guitar extends StringedInstrument implements Tunable, Maintainable {
 
     @java.lang.Override
     public String adjustPitch(boolean up) {
-        if (up) {
-            return "Высота тона гитары увеличена (шаг вверх).";
-        } else {
-            return "Высота тона гитары уменьшена (шаг вниз).";
-        }
+        return up ? "Increasing pitch of the guitar" : "Decreasing pitch of the guitar";
     }
 
     @java.lang.Override
@@ -180,47 +185,16 @@ class Piano extends Instrument implements Tunable, Maintainable {
 public class MusicShop {
     public static void main(String[] args) {
 
-        // Вариант 1
-        Instrument[] instrumentsV1 = new Instrument[2];
-
         Guitar guitar = new Guitar("Name of guitar", 1950, 7, "Type of guitar");
         Piano piano = new Piano("Name of piano", 1955, true);
 
-        instrumentsV1[0] = guitar;
-        instrumentsV1[1] = piano;
+        List<Instrument> instruments = new ArrayList<>();
 
-        instrumentsV1[0].play();
-        instrumentsV1[1].play();
+        instruments.add(guitar);
+        instruments.add(piano);
 
-        instrumentsV1[0].getInstrumentDetails();
-        instrumentsV1[1].getInstrumentDetails();
+        for (Instrument instrument : instruments) {
 
-        instrumentsV1[0].tune();
-        instrumentsV1[1].tune();
-
-        instrumentsV1[0].adjustPitch(true);
-        instrumentsV1[1].adjustPitch(true);
-
-        instrumentsV1[0].clean();
-        instrumentsV1[1].clean();
-
-        instrumentsV1[0].inspect();
-        instrumentsV1[1].inspect();
-
-
-        // Вариант 2
-        List<Instrument> instrumentsV2 = new ArrayList<>();
-
-        instrumentsV2.add(guitar);
-        instrumentsV2.add(piano);
-
-        for (int i = 0; i < instrumentsV2.size(); i++) {
-            instrumentsV2.get(i).play();
-            instrumentsV2.get(i).getInstrumentDetails();
-            instrumentsV2.get(i).tune();
-            instrumentsV2.get(i).adjustPitch(true);
-            instrumentsV2.get(i).clean();
-            instrumentsV2.get(i).inspect();
         }
 
 
